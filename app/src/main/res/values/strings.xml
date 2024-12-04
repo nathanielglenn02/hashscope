@@ -15,5 +15,13 @@
     <string name="technology">Technology</string>
     <string name="economy">Economy</string>
     <string name="politics">Politics</string>
+    <string name="main">Main</string>
+    <string name="grafik">Grafik</string>
+    <string name="profil">Profil</string>
+    <string-array name="platform_options">
+        <item>Aplikasi X</item>
+        <item>YouTube</item>
+        <item>Web (Browser)</item>
+    </string-array>
 
 </resources>
