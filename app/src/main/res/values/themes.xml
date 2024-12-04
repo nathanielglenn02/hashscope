@@ -1,9 +1,28 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!-- Base application theme -->
     <style name="Base.Theme.HashScope" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Customize your light theme here -->
+        <!-- Color utama untuk tema terang -->
+        <item name="colorPrimary">#000000</item> <!-- Warna utama hitam -->
+        <item name="colorPrimaryVariant">#000000</item> <!-- Variasi warna utama hitam -->
+        <item name="colorOnPrimary">#FFFFFF</item> <!-- Warna teks tombol menjadi putih -->
+
+        <!-- Customize your dark theme here -->
+        <!-- Color utama untuk tema gelap -->
+        <item name="colorPrimaryDark">#000000</item> <!-- Warna utama hitam untuk tema gelap -->
+
+        <!-- Tombol - Warna latar belakang hitam dan teks putih -->
+        <item name="android:buttonStyle">@style/Widget.HashScope.Button</item>
     </style>
 
-    <style name="Theme.HashScope" parent="Base.Theme.HashScope" />
+    <!-- Tema aplikasi utama yang mengacu pada Base.Theme.HashScope -->
+    <style name="Theme.HashScope" parent="Base.Theme.HashScope">
+        <!-- Anda bisa menambahkan kustomisasi tambahan di sini -->
+    </style>
+
+    <!-- Style untuk tombol -->
+    <style name="Widget.HashScope.Button" parent="Widget.Material3.Button">
+        <item name="android:backgroundTint">#000000</item> <!-- Warna latar belakang tombol hitam -->
+        <item name="android:textColor">#FFFFFF</item> <!-- Warna teks tombol putih -->
+    </style>
 </resources>

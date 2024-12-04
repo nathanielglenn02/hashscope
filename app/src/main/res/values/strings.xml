@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">HashScope</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="username">Username</string>
+    <string name="hashscope">HashScope</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="already_have_an_account_login">Already have an account? Login</string>
+    <string name="don_t_have_an_account_register">Don\'t have an account? Register</string>
+    <string name="select_category">Select a Category</string>
+    <string name="technology">Technology</string>
+    <string name="economy">Economy</string>
+    <string name="politics">Politics</string>
+
 </resources>
