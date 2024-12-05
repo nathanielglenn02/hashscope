@@ -19,6 +19,7 @@
     <string name="grafik">Grafik</string>
     <string name="profil">Profil</string>
     <string-array name="platform_options">
+        <item>Select platform</item>
         <item>Aplikasi X</item>
         <item>YouTube</item>
         <item>Web (Browser)</item>
