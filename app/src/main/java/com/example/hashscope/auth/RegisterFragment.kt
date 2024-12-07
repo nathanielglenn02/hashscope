@@ -9,6 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.hashscope.R
 import com.example.hashscope.databinding.FragmentRegisterBinding
+import com.example.hashscope.network.RetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RegisterFragment : Fragment() {
 
@@ -19,7 +23,6 @@ class RegisterFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout using View Binding
         _binding = FragmentRegisterBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -30,13 +33,13 @@ class RegisterFragment : Fragment() {
         // Handle Register Button click
         binding.registerButton.setOnClickListener {
             val username = binding.usernameInput.text.toString()
-            val email = binding.emailInput.toString()
-            val password = binding.passwordInput.toString()
+            val email = binding.emailInput.text.toString()
+            val password = binding.passwordInput.text.toString()
 
             if (validateInput(username, email, password)) {
-                // Add registration logic here (API call, etc.)
-                Toast.makeText(requireContext(), "Registration Successful", Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                val registerRequest = RegisterRequest(username, email, password)
+                // Perform API call for registration
+                registerUser(registerRequest)
             }
         }
 
@@ -46,14 +49,34 @@ class RegisterFragment : Fragment() {
         }
     }
 
+    private fun registerUser(registerRequest: RegisterRequest) {
+        RetrofitClient.apiService.registerUser(registerRequest).enqueue(object : Callback<RegisterResponse> {
+            override fun onResponse(call: Call<RegisterResponse>, response: Response<RegisterResponse>) {
+                if (response.isSuccessful) {
+                    val registerResponse = response.body()
+                    if (registerResponse != null && registerResponse.success) {
+                        Toast.makeText(requireContext(), "Registration Successful", Toast.LENGTH_SHORT).show()
+                        findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                    } else {
+                        Toast.makeText(requireContext(), registerResponse?.message ?: "Registration Failed", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(requireContext(), "Error: ${response.message()}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                Toast.makeText(requireContext(), "Registration Failed: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
     private fun validateInput(username: String, email: String, password: String): Boolean {
-        // Validate username
         if (username.isEmpty()) {
             binding.usernameInput.error = "Username is required"
             return false
         }
 
-        // Validate email
         if (email.isEmpty()) {
             binding.emailInput.error = "Email is required"
             return false
@@ -62,7 +85,6 @@ class RegisterFragment : Fragment() {
             return false
         }
 
-        // Validate password
         if (password.isEmpty()) {
             binding.passwordInput.error = "Password is required"
             return false
