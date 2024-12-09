@@ -1,21 +1,26 @@
-package com.example.hashscope.ui.fragments
+package com.example.hashscope.ui
 
-import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
-import com.example.hashscope.R
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.hashscope.adapter.MainTopicAdapter
 import com.example.hashscope.databinding.FragmentMainBinding
-import com.example.hashscope.ui.DetailTopicActivity
+import com.example.hashscope.model.MainTopic
+import com.example.hashscope.network.RetrofitClient
+import kotlinx.coroutines.launch
+import retrofit2.Response
 
 class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var adapter: MainTopicAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,39 +33,54 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Setup Spinner options
-        val platforms = resources.getStringArray(R.array.platform_options)
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, platforms)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.platformSpinner.adapter = adapter
+        // Set up RecyclerView
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        adapter = MainTopicAdapter(emptyList()) // Initialize the adapter with an empty list
+        binding.recyclerView.adapter = adapter
 
-        // Setup Spinner selection listener
-        binding.platformSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val selectedPlatform = parent?.getItemAtPosition(position).toString()
+        // Mendapatkan ID kategori yang dikirim melalui argument bundle
+        val categoryId = arguments?.getInt("CATEGORY_ID") ?: 0 // Default value is 0
+        fetchMainTopics(categoryId)
+    }
 
-                // Navigate to DetailTopicActivity if a valid item is selected
-                if (position != 0) { // Ignore the first item ("Select platform")
-                    navigateToDetailTopic(selectedPlatform)
+    // Fungsi untuk mengambil dan mengurutkan MainTopics berdasarkan frekuensi
+    private fun fetchMainTopics(categoryId: Int) {
+        lifecycleScope.launch {
+            try {
+                // Memanggil API menggunakan suspend function
+                val response: Response<List<MainTopic>> = RetrofitClient.apiService.getMainTopics(categoryId)
+
+                // Debugging: Log request URL dan status code
+                Log.d("MainFragment", "API Request URL: ${RetrofitClient.apiService.getMainTopics(categoryId)}")
+                Log.d("MainFragment", "Response Status: ${response.code()}")
+
+                if (response.isSuccessful) {
+                    val mainTopics = response.body() ?: emptyList()
+
+                    // Cek apakah data mainTopics ada atau kosong
+                    if (mainTopics.isEmpty()) {
+                        binding.recyclerView.visibility = View.GONE
+                        binding.noMainTopicsTextView.visibility = View.VISIBLE
+                    } else {
+                        binding.recyclerView.visibility = View.VISIBLE
+                        binding.noMainTopicsTextView.visibility = View.GONE
+                        val sortedTopics = mainTopics.sortedByDescending { it.frequency }
+                        displayMainTopics(sortedTopics)
+                    }
+                } else {
+                    Log.e("MainFragment", "Error: ${response.message()}")
                 }
-            }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                // Do nothing
+            } catch (e: Exception) {
+                // Tangani error jika API gagal
+                Log.e("MainFragment", "Exception: ${e.message}")
             }
         }
     }
 
-    private fun navigateToDetailTopic(platform: String) {
-        val intent = Intent(requireContext(), DetailTopicActivity::class.java)
-        intent.putExtra("SELECTED_PLATFORM", platform)
-        startActivity(intent)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        // Reset spinner to the default "Select platform" option
-        binding.platformSpinner.setSelection(0)
+    // Fungsi untuk menampilkan main topics pada RecyclerView
+    private fun displayMainTopics(mainTopics: List<MainTopic>) {
+        adapter.updateData(mainTopics)
     }
 
     override fun onDestroyView() {

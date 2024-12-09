@@ -18,6 +18,7 @@
     <string name="main">Main</string>
     <string name="grafik">Grafik</string>
     <string name="profil">Profil</string>
+    <string name="main_topics">Main Topics</string>
     <string-array name="platform_options">
         <item>Select platform</item>
         <item>Aplikasi X</item>

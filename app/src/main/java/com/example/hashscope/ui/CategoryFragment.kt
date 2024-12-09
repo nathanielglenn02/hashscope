@@ -25,20 +25,21 @@ class CategoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Menangani klik kategori dan mengirimkan ID kategori
         binding.technologyCategory.setOnClickListener {
-            navigateToHomeActivity("Technology")
+            navigateToHomeActivity(1) // ID 1 untuk Technology
         }
         binding.economyCategory.setOnClickListener {
-            navigateToHomeActivity("Economy")
+            navigateToHomeActivity(2) // ID 2 untuk Economy
         }
         binding.politicsCategory.setOnClickListener {
-            navigateToHomeActivity("Politics")
+            navigateToHomeActivity(3) // ID 3 untuk Politics
         }
     }
 
-    private fun navigateToHomeActivity(category: String) {
+    private fun navigateToHomeActivity(categoryId: Int) {
         val intent = Intent(requireContext(), HomeActivity::class.java)
-        intent.putExtra("CATEGORY", category) // Pass the selected category
+        intent.putExtra("CATEGORY_ID", categoryId) // Pass the category ID
         startActivity(intent)
         requireActivity().finish() // Optional: close CategoryFragment
     }

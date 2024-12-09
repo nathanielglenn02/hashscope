@@ -1,20 +1,31 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
 
     <TextView
+        android:id="@+id/mainTopicsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Main Topics"
         android:textSize="18sp"
         android:layout_marginBottom="8dp"/>
 
-    <Spinner
-        android:id="@+id/platformSpinner"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/noMainTopicsTextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:entries="@array/platform_options"/>
+        android:text="No main topics available."
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:visibility="gone"
+        android:layout_marginTop="16dp"/>
+
 </LinearLayout>

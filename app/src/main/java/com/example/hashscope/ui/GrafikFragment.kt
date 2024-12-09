@@ -1,4 +1,4 @@
-package com.example.hashscope.ui.fragments
+package com.example.hashscope.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
