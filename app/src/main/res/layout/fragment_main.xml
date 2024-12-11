@@ -2,16 +2,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     android:padding="16dp">
 
-    <!-- Title TextView -->
-    <TextView
-        android:id="@+id/mainTopicsTextView"
-        android:layout_width="wrap_content"
+    <!-- Header Section: Title and Logo -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Main Topics"
-        android:textSize="18sp"
-        android:layout_marginBottom="8dp"/>
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="8dp">
+
+        <!-- Title TextView -->
+        <TextView
+            android:id="@+id/mainTopicsTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Main Topics"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/roboto_bold" />
+
+        <!-- Logo ImageView -->
+        <ImageView
+            android:id="@+id/logoImageView"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/logo_bg"
+            android:layout_marginStart="8dp" />
+    </LinearLayout>
 
     <!-- RecyclerView for displaying main topics -->
     <androidx.recyclerview.widget.RecyclerView
@@ -19,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:visibility="gone"/>
+        android:visibility="visible" />
 
     <!-- Progress Bar for loading state -->
     <ProgressBar
@@ -27,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center" />
 
     <!-- TextView for no data available -->
     <TextView
@@ -36,9 +56,11 @@
         android:layout_height="wrap_content"
         android:text="No main topics available."
         android:textSize="16sp"
-        android:textColor="@android:color/black"
+        android:textColor="@color/black"
+        android:fontFamily="@font/roboto_bold"
         android:visibility="gone"
-        android:layout_marginTop="16dp"/>
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp" />
 
     <!-- TextView for error message -->
     <TextView
@@ -46,19 +68,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Something went wrong!"
-        android:textColor="@android:color/holo_red_dark"
+        android:textColor="@color/white1"
+        android:fontFamily="@font/roboto_bold"
         android:visibility="gone"
         android:layout_gravity="center"
-        android:layout_marginTop="16dp"/>
-
-    <!-- Load More Button -->
-    <Button
-        android:id="@+id/loadMoreButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Load More"
-        android:visibility="gone"
-    android:onClick="loadMore"/>
-
-
+        android:layout_marginTop="16dp" />
 </LinearLayout>

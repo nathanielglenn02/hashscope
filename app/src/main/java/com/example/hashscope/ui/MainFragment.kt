@@ -57,12 +57,12 @@ class MainFragment : Fragment() {
                 binding.recyclerView.visibility = View.VISIBLE
             }
 
-            // Handle load more button visibility
-            if (loadState.append is LoadState.NotLoading && loadState.append.endOfPaginationReached) {
-                binding.loadMoreButton.visibility = View.GONE // Hide Load More button when all data is loaded
-            } else {
-                binding.loadMoreButton.visibility = View.VISIBLE // Show Load More button if more data available
-            }
+//            // Handle load more button visibility
+//            if (loadState.append is LoadState.NotLoading && loadState.append.endOfPaginationReached) {
+//                binding.loadMoreButton.visibility = View.GONE // Hide Load More button when all data is loaded
+//            } else {
+//                binding.loadMoreButton.visibility = View.VISIBLE // Show Load More button if more data available
+//            }
         }
 
         // Mendapatkan ID kategori yang dikirim melalui argument bundle
