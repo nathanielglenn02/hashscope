@@ -4,41 +4,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:background="#121212">
+    android:background="#FFFFFF"> <!-- Background putih -->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Grafik Pertama: Frekuensi Saat Ini -->
+        <!-- Judul Grafik -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Frekuensi Topik Saat Ini"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:textSize="18sp"
             android:textStyle="bold"
             android:paddingBottom="4dp"
-            android:fontFamily="@font/roboto_bold" />
+            android:fontFamily="@font/roboto_bold"/>
 
+        <!-- Bar Chart -->
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/barChart"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_marginBottom="16dp" />
 
-        <!-- Grafik Kedua: Prediksi Frekuensi -->
+        <!-- Judul Grafik Kedua -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Prediksi Frekuensi Topik"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:textSize="18sp"
             android:textStyle="bold"
             android:paddingBottom="4dp"
-            android:fontFamily="@font/roboto_bold" />
+            android:fontFamily="@font/roboto_bold"/>
 
+        <!-- Line Chart -->
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/lineChart"
             android:layout_width="match_parent"
@@ -46,6 +48,7 @@
             android:layout_marginBottom="16dp" />
     </LinearLayout>
 </ScrollView>
+
 
 
 
