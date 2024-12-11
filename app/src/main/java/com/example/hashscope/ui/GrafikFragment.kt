@@ -28,7 +28,8 @@ class GrafikFragment : Fragment() {
         _binding = FragmentGrafikBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        val selectedCategoryId = 1 // ID kategori, ganti sesuai kebutuhan
+        // Mendapatkan ID kategori yang dikirim melalui argument bundle
+        val selectedCategoryId = arguments?.getInt("CATEGORY_ID") ?: 0 // Default value is 0
         fetchMainTopics(selectedCategoryId) // Panggil API untuk grafik pertama
 
         return view
