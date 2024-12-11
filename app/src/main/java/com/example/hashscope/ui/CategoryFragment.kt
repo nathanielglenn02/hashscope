@@ -32,18 +32,18 @@ class CategoryFragment : Fragment() {
 
         binding.technologyCategory.setOnClickListener {
             navigateToHomeActivity(1) // ID 1 untuk Technology
-            sendNewsRequest("technology", "tech_news.csv", 100)
-            sendYouTubeRequest("technology", 100, 100)
+//            sendNewsRequest("technology", "tech_news.csv", 100)
+//            sendYouTubeRequest("technology", 100, 100)
         }
         binding.economyCategory.setOnClickListener {
             navigateToHomeActivity(2) // ID 2 untuk Economy
-            sendNewsRequest("economy", "eco_news.csv", 100)
-            sendYouTubeRequest("economy", 100, 100)
+//            sendNewsRequest("economy", "eco_news.csv", 100)
+//            sendYouTubeRequest("economy", 100, 100)
         }
         binding.politicsCategory.setOnClickListener {
             navigateToHomeActivity(3) // ID 3 untuk Politics
-            sendNewsRequest("politics", "poli_news.csv", 100)
-            sendYouTubeRequest("politics", 100, 100)
+//            sendNewsRequest("politics", "poli_news.csv", 100)
+//            sendYouTubeRequest("politics", 100, 100)
         }
     }
 
