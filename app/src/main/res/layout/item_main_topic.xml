@@ -13,6 +13,8 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <!-- Topic Name TextView -->
+
         <TextView
             android:id="@+id/topicNameTextView"
             android:layout_width="wrap_content"
@@ -22,6 +24,7 @@
             android:textColor="@android:color/black"
             android:layout_marginBottom="8dp" />
 
+        <!-- Frequency TextView -->
         <TextView
             android:id="@+id/topicFrequencyTextView"
             android:layout_width="wrap_content"
@@ -29,5 +32,9 @@
             android:text="Frequency"
             android:textSize="14sp"
             android:textColor="@android:color/darker_gray" />
+
+
+        <!-- Load More Button -->
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>

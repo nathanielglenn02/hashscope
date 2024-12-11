@@ -1,38 +1,49 @@
 package com.example.hashscope.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.hashscope.R
+import com.example.hashscope.databinding.ItemMainTopicBinding
 import com.example.hashscope.model.MainTopic
 
-class MainTopicAdapter(private var mainTopics: List<MainTopic>) : RecyclerView.Adapter<MainTopicAdapter.MainTopicViewHolder>() {
+class MainTopicAdapter :
+    PagingDataAdapter<MainTopic, MainTopicAdapter.MainTopicViewHolder>(MainTopicComparator) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainTopicViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_main_topic, parent, false)
-        return MainTopicViewHolder(view)
+        val binding = ItemMainTopicBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MainTopicViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MainTopicViewHolder, position: Int) {
-        val mainTopic = mainTopics[position]
-        holder.topicNameTextView.text = mainTopic.topics_name
-        holder.topicFrequencyTextView.text = "Frequency: ${mainTopic.frequency}"
+        val mainTopic = getItem(position) // Access the item at position using getItem()
+        if (mainTopic != null) {
+            holder.bind(mainTopic)
+        }
     }
 
-    override fun getItemCount(): Int {
-        return mainTopics.size
+    inner class MainTopicViewHolder(private val binding: ItemMainTopicBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(mainTopic: MainTopic) {
+            binding.topicNameTextView.text = mainTopic.topics_name
+            binding.topicFrequencyTextView.text = "Frequency: ${mainTopic.frequency}"
+        }
     }
 
-    // Add this method to update data in the adapter
-    fun updateData(newData: List<MainTopic>) {
-        mainTopics = newData
-        notifyDataSetChanged()  // Notify RecyclerView that data has been updated
-    }
+    // DiffUtil for comparing MainTopic items
+    object MainTopicComparator : DiffUtil.ItemCallback<MainTopic>() {
+        override fun areItemsTheSame(oldItem: MainTopic, newItem: MainTopic): Boolean {
+            return oldItem.id == newItem.id // Compare based on ID
+        }
 
-    inner class MainTopicViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val topicNameTextView: TextView = itemView.findViewById(R.id.topicNameTextView)
-        val topicFrequencyTextView: TextView = itemView.findViewById(R.id.topicFrequencyTextView)
+        override fun areContentsTheSame(oldItem: MainTopic, newItem: MainTopic): Boolean {
+            return oldItem == newItem // Compare based on contents
+        }
     }
 }
+
+
+
