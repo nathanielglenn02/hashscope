@@ -58,16 +58,21 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     val response: Response<LoginResponse> = RetrofitClient.apiService.login(loginRequest)
 
                     if (response.isSuccessful) {
-                        val token = response.body()?.token
-                        if (!token.isNullOrEmpty()) {
-                            // Simpan token ke SharedPreferences
+                        val loginResponse = response.body()
+                        if (loginResponse != null) {
+                            val token = loginResponse.token
+                            val user = loginResponse.user
+
+                            // Simpan token, email, dan nama ke SharedPreferences
                             userPreference.saveToken(token)
+                            userPreference.saveUserEmail(user.email)
+                            userPreference.saveUserName(user.name)
 
                             // Navigasi ke CategoryFragment
                             Toast.makeText(requireContext(), "Login Sukses", Toast.LENGTH_SHORT).show()
                             findNavController().navigate(R.id.action_loginFragment_to_categoryFragment)
                         } else {
-                            Toast.makeText(requireContext(), "Token tidak ditemukan", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), "Login gagal: Respons kosong", Toast.LENGTH_SHORT).show()
                         }
                     } else {
                         Toast.makeText(requireContext(), "Login Gagal: ${response.message()}", Toast.LENGTH_SHORT).show()
@@ -76,6 +81,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     Toast.makeText(requireContext(), "Terjadi kesalahan: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
+
+
         }
 
         // Handle klik link signup
