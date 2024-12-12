@@ -192,9 +192,11 @@ class GrafikFragment : Fragment() {
     }
 
     private fun hideLoadingBarChart() {
-        binding.loadingBarChart.visibility = View.GONE
-        val logo = binding.loadingBarChart.findViewById<View>(R.id.loadingLogo)
-        logo.clearAnimation() // Hentikan animasi
+        _binding?.let { binding ->
+            binding.loadingBarChart.visibility = View.GONE
+            val logo = binding.loadingBarChart.findViewById<View>(R.id.loadingLogo)
+            logo.clearAnimation() // Hentikan animasi
+        }
     }
 
     private fun showLoadingLineChart() {
@@ -205,15 +207,30 @@ class GrafikFragment : Fragment() {
     }
 
     private fun hideLoadingLineChart() {
-        binding.loadingLineChart.visibility = View.GONE
-        val logo = binding.loadingLineChart.findViewById<View>(R.id.loadingLogo)
-        logo.clearAnimation() // Hentikan animasi
+        _binding?.let { binding ->
+            binding.loadingLineChart.visibility = View.GONE
+            val logo = binding.loadingLineChart.findViewById<View>(R.id.loadingLogo)
+            logo.clearAnimation() // Hentikan animasi
+        }
     }
 
 
     private fun extractTopics() {
-        fetchPredictedTopics()
+        lifecycleScope.launch {
+            try {
+                val response = RetrofitClient.apiService.extractTopics()
+                if (response.isSuccessful) {
+                    println("Extract Topics Success: ${response.body()}")
+                    fetchPredictedTopics() // Lanjutkan hanya jika sukses
+                } else {
+                    println("Error during topic extraction: ${response.errorBody()?.string()}")
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
