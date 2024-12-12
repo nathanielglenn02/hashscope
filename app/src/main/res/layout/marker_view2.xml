@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/marker_root"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:background="@drawable/marker_background">
+
+        <TextView
+            android:id="@+id/topicText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Topic"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/previousFrequencyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Previous Frequency"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/predictedFrequencyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Predicted Frequency"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/changePercentageText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change Percentage"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
