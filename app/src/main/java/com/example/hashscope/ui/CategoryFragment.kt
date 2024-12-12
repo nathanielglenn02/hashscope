@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.example.hashscope.R
 import com.example.hashscope.databinding.FragmentCategoryBinding
 import com.example.hashscope.model.ScrapeNewsRequest
 import com.example.hashscope.model.ScrapeYouTubeRequest
@@ -87,6 +88,7 @@ class CategoryFragment : Fragment() {
         val intent = Intent(requireContext(), HomeActivity::class.java)
         intent.putExtra("CATEGORY_ID", categoryId) // Pass the category ID
         startActivity(intent)
+        requireActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down)
         requireActivity().finish() // Optional: close CategoryFragment
     }
 
