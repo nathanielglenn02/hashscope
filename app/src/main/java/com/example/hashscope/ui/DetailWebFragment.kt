@@ -5,19 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.hashscope.adapter.AccordionAdapter
 import com.example.hashscope.databinding.FragmentDetailWebBinding
+import com.example.hashscope.model.PlatformData
 
 class DetailWebFragment : Fragment() {
 
     private var _binding: FragmentDetailWebBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var platformData: PlatformData
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            platformData = it.getSerializable("DATA") as PlatformData
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = FragmentDetailWebBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -25,21 +33,25 @@ class DetailWebFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val fullText = "Generative AI memimpin tren di platform Web"
-        val additionalFields = mapOf(
-            "Source" to "TechCrunch",
-            "Date Published" to "28/11/2024",
-            "Category" to "Technology"
-        )
-
-        binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = AccordionAdapter(fullText, additionalFields)
-        }
+        // Tampilkan data di UI menggunakan binding
+        binding.tvFullText.text = platformData.full_text
+        binding.tvSource.text = "Source: ${platformData.source ?: "N/A"}"
+        binding.tvUrl.text = "URL: ${platformData.url ?: "N/A"}"
+        binding.tvCreatedAt.text = "Created At: ${platformData.created_at ?: "N/A"}"
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        fun newInstance(data: PlatformData): DetailWebFragment {
+            val fragment = DetailWebFragment()
+            val args = Bundle()
+            args.putSerializable("DATA", data)
+            fragment.arguments = args
+            return fragment
+        }
     }
 }

@@ -5,19 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.hashscope.adapter.AccordionAdapter
 import com.example.hashscope.databinding.FragmentDetailXBinding
+import com.example.hashscope.model.PlatformData
 
 class DetailXFragment : Fragment() {
 
     private var _binding: FragmentDetailXBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var platformData: PlatformData
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            platformData = it.getSerializable("DATA") as PlatformData
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = FragmentDetailXBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -25,24 +33,25 @@ class DetailXFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Example data
-        val fullText = "Generative AI mencapai masa jayanya"
-        val additionalFields = mapOf(
-            "Favorite Count" to "120",
-            "Quote Count" to "50",
-            "Reply Count" to "30",
-            "Retweet Count" to "200"
-        )
-
-        // Set up RecyclerView
-        binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = AccordionAdapter(fullText, additionalFields)
-        }
+        // Tampilkan data di UI menggunakan binding
+        binding.tvFullText.text = platformData.full_text
+        binding.tvUsername.text = "Username: ${platformData.username ?: "N/A"}"
+        binding.tvLocation.text = "Location: ${platformData.location ?: "N/A"}"
+        binding.tvRetweetCount.text = "Retweet Count: ${platformData.retweet_count ?: 0}"
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        fun newInstance(data: PlatformData): DetailXFragment {
+            val fragment = DetailXFragment()
+            val args = Bundle()
+            args.putSerializable("DATA", data)
+            fragment.arguments = args
+            return fragment
+        }
     }
 }

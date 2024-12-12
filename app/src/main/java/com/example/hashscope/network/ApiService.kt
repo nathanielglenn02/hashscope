@@ -5,6 +5,7 @@ import com.example.hashscope.auth.LoginResponse
 import com.example.hashscope.auth.RegisterRequest
 import com.example.hashscope.auth.RegisterResponse
 import com.example.hashscope.model.MainTopic
+import com.example.hashscope.model.PlatformData
 import com.example.hashscope.model.ScrapeNewsRequest
 import com.example.hashscope.model.ScrapeResponse
 import com.example.hashscope.model.ScrapeYouTubeRequest
@@ -30,6 +31,14 @@ interface ApiService {
         @Query("page") page: Int,
         @Query("limit") limit: Int
     ): Response<List<MainTopic>>
+
+    @GET("platform_data")
+    fun getPlatformData(
+        @Query("platform") platform: String,
+        @Query("category_id") categoryId: Int,
+        @Query("main_topic_id") mainTopicId: Int
+    ): Call<List<PlatformData>>
+
 
     // Endpoint 7: Scrape Google News
     @POST("scrape_news")

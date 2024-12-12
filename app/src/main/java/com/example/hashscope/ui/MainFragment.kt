@@ -1,5 +1,6 @@
 package com.example.hashscope.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -43,28 +44,40 @@ class MainFragment : Fragment() {
         addLoadingIndicator()
         addPaginationLoadingIndicator()
 
-        // Set up RecyclerView with LinearLayoutManager
+        // Ambil ID kategori dari argument
+        val categoryId = arguments?.getInt("CATEGORY_ID") ?: 0
+
+        // Set adapter dengan listener klik
+        adapter = MainTopicAdapter { mainTopic ->
+            // Tangani klik pada item
+            val intent = Intent(requireContext(), DetailTopicActivity::class.java).apply {
+                putExtra("CATEGORY_ID", categoryId)
+                putExtra("MAIN_TOPIC_ID", mainTopic.topic_id)
+                putExtra("X_DATASETS_ID", mainTopic.x_datasets_idx_datasets ?: -1)
+                putExtra("WEB_DATASETS_ID", mainTopic.web_datasets_idweb_datasets ?: -1)
+                putExtra("YOUTUBE_DATASETS_ID", mainTopic.youtube_datasets_idyoutube_datasets ?: -1)
+            }
+            startActivity(intent)
+            requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
+
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = MainTopicAdapter()
         binding.recyclerView.adapter = adapter
 
-        // Setup load state listener for progress bar and errors
+        // Setup load state listener untuk progress bar dan error handling
         adapter.addLoadStateListener { loadState ->
-            // Tampilkan indikator loading untuk halaman pertama
             if (loadState.source.refresh is LoadState.Loading) {
                 showLoading()
             } else {
                 hideLoading()
             }
 
-            // Tampilkan indikator loading untuk halaman berikutnya
             if (loadState.append is LoadState.Loading) {
                 showPaginationLoading()
             } else {
                 hidePaginationLoading()
             }
 
-            // Handle errors
             if (loadState.source.refresh is LoadState.Error) {
                 val error = (loadState.source.refresh as LoadState.Error).error
                 binding.errorText.visibility = View.VISIBLE
@@ -76,10 +89,9 @@ class MainFragment : Fragment() {
             }
         }
 
-        // Mendapatkan ID kategori yang dikirim melalui argument bundle
-        val categoryId = arguments?.getInt("CATEGORY_ID") ?: 0 // Default value is 0
         fetchMainTopics(categoryId)
     }
+
 
     private fun fetchMainTopics(categoryId: Int) {
         lifecycleScope.launch {
