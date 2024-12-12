@@ -5,7 +5,6 @@
     android:background="@color/white"
     android:padding="16dp">
 
-    <!-- Header Section: Title and Logo -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,7 +12,6 @@
         android:gravity="center_vertical"
         android:paddingBottom="8dp">
 
-        <!-- Title TextView -->
         <TextView
             android:id="@+id/detailGrafikTextView"
             android:layout_width="0dp"
@@ -24,7 +22,6 @@
             android:textColor="@color/black"
             android:fontFamily="@font/roboto_bold" />
 
-        <!-- Logo ImageView -->
         <ImageView
             android:id="@+id/logoImage"
             android:layout_width="64dp"

@@ -26,8 +26,8 @@ class MainFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var adapter: MainTopicAdapter
-    private var loadingView: View? = null // Loading view container
-    private var paginationLoadingView: View? = null // Loading for pagination
+    private var loadingView: View? = null
+    private var paginationLoadingView: View? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,15 +39,9 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // Tambahkan indikator loading
         addLoadingIndicator()
         addPaginationLoadingIndicator()
-
-        // Ambil ID kategori dari argument
         val categoryId = arguments?.getInt("CATEGORY_ID") ?: 0
-
-        // Set adapter dengan listener klik
         adapter = MainTopicAdapter { mainTopic ->
             // Tangani klik pada item
             val intent = Intent(requireContext(), DetailTopicActivity::class.java).apply {
@@ -63,8 +57,6 @@ class MainFragment : Fragment() {
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
-
-        // Setup load state listener untuk progress bar dan error handling
         adapter.addLoadStateListener { loadState ->
             if (loadState.source.refresh is LoadState.Loading) {
                 showLoading()
@@ -88,31 +80,26 @@ class MainFragment : Fragment() {
                 binding.recyclerView.visibility = View.VISIBLE
             }
         }
-
         fetchMainTopics(categoryId)
     }
 
 
     private fun fetchMainTopics(categoryId: Int) {
         lifecycleScope.launch {
-            // Paging configuration for 10 items per page
             val pager = Pager(
                 config = PagingConfig(
-                    pageSize = 10,  // Define the number of items per page
-                    enablePlaceholders = false,  // Don't show placeholders for missing data
-                    prefetchDistance = 2,  // Fetch additional pages in advance
+                    pageSize = 10,
+                    enablePlaceholders = false,
+                    prefetchDistance = 2,
                 ),
                 pagingSourceFactory = { MainTopicPagingSource(RetrofitClient.apiService, categoryId) }
             )
-
-            // Collect paging data
             pager.flow.collectLatest { pagingData ->
-                adapter.submitData(pagingData)  // Submit data to the adapter
+                adapter.submitData(pagingData)
             }
         }
     }
 
-    // Tambahkan indikator loading untuk halaman pertama
     private fun addLoadingIndicator() {
         val inflater = LayoutInflater.from(requireContext())
         loadingView = inflater.inflate(R.layout.loading_indicator, binding.root, false)
@@ -120,18 +107,15 @@ class MainFragment : Fragment() {
         val logo = loadingView?.findViewById<View>(R.id.loadingLogo)
         val rotateAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.rotate)
         logo?.startAnimation(rotateAnimation)
-        loadingView?.visibility = View.GONE // Awalnya disembunyikan
+        loadingView?.visibility = View.GONE
     }
 
     private fun showLoading() {
         loadingView?.visibility = View.VISIBLE
     }
-
     private fun hideLoading() {
         loadingView?.visibility = View.GONE
     }
-
-    // Tambahkan indikator loading untuk pagination
     private fun addPaginationLoadingIndicator() {
         val inflater = LayoutInflater.from(requireContext())
         paginationLoadingView = inflater.inflate(R.layout.loading_indicator, binding.root, false)
@@ -139,7 +123,7 @@ class MainFragment : Fragment() {
         val logo = paginationLoadingView?.findViewById<View>(R.id.loadingLogo)
         val rotateAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.rotate)
         logo?.startAnimation(rotateAnimation)
-        paginationLoadingView?.visibility = View.GONE // Awalnya disembunyikan
+        paginationLoadingView?.visibility = View.GONE
     }
 
     private fun showPaginationLoading() {

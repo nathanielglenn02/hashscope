@@ -1,3 +1,6 @@
+package com.example.hashscope.adapter
+
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +19,7 @@ class PredictedTopicAdapter(private val topics: List<PredictedTopic>) :
         return ViewHolder(binding)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val topic = topics[position]
         holder.binding.tvTitle.text = topic.top_topic

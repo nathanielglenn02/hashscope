@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.hashscope.R
 import com.example.hashscope.databinding.FragmentCategoryBinding
 import com.example.hashscope.model.ScrapeNewsRequest
+import com.example.hashscope.model.ScrapeXRequest
 import com.example.hashscope.model.ScrapeYouTubeRequest
 import com.example.hashscope.network.RetrofitClient
 import kotlinx.coroutines.launch
@@ -33,22 +34,24 @@ class CategoryFragment : Fragment() {
 
         binding.technologyCategory.setOnClickListener {
             navigateToHomeActivity(1) // ID 1 untuk Technology
-//            sendNewsRequest("technology", "tech_news.csv", 100)
-//            sendYouTubeRequest("technology", 100, 100)
+            sendNewsRequest("technology", "tech_news.csv", 100)
+            sendYouTubeRequest("technology", 100, 100)
+              sendXRequest(1,"x-technology.csv",100)
         }
         binding.economyCategory.setOnClickListener {
             navigateToHomeActivity(2) // ID 2 untuk Economy
-//            sendNewsRequest("economy", "eco_news.csv", 100)
-//            sendYouTubeRequest("economy", 100, 100)
+            sendNewsRequest("economy", "eco_news.csv", 100)
+            sendYouTubeRequest("economy", 100, 100)
+            sendXRequest(2,"x-technology.csv",100)
         }
         binding.politicsCategory.setOnClickListener {
             navigateToHomeActivity(3) // ID 3 untuk Politics
-//            sendNewsRequest("politics", "poli_news.csv", 100)
-//            sendYouTubeRequest("politics", 100, 100)
+            sendNewsRequest("politics", "poli_news.csv", 100)
+            sendYouTubeRequest("politics", 100, 100)
+            sendXRequest(3,"x-technology.csv",100)
         }
     }
 
-    // Tambahkan fungsi untuk memanggil endpoint scrape_news
     private fun sendNewsRequest(category: String, filename: String, maxResults: Int) {
         lifecycleScope.launch {
             try {
@@ -66,7 +69,6 @@ class CategoryFragment : Fragment() {
         }
     }
 
-    // Tambahkan fungsi untuk memanggil endpoint scrape_youtube
     private fun sendYouTubeRequest(searchKeyword: String, maxResults: Int, maxComments: Int) {
         lifecycleScope.launch {
             try {
@@ -84,12 +86,29 @@ class CategoryFragment : Fragment() {
         }
     }
 
+    private fun sendXRequest(category_id: Int , filename: String, limit: Int) {
+        lifecycleScope.launch {
+            try {
+                val request = ScrapeXRequest(category_id, filename, limit)
+                val response = RetrofitClient.apiService.scrapeX(request)
+
+                if (response.isSuccessful && response.body() != null) {
+                    Toast.makeText(requireContext(), response.body()?.message, Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "Failed to scrape X data", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     private fun navigateToHomeActivity(categoryId: Int) {
         val intent = Intent(requireContext(), HomeActivity::class.java)
         intent.putExtra("CATEGORY_ID", categoryId) // Pass the category ID
         startActivity(intent)
         requireActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down)
-        requireActivity().finish() // Optional: close CategoryFragment
+        requireActivity().finish()
     }
 
     override fun onDestroyView() {

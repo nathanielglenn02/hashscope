@@ -1,5 +1,6 @@
 package com.example.hashscope.custom
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.widget.LinearLayout
 import com.example.hashscope.R
@@ -10,6 +11,7 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.utils.MPPointF
 
+@SuppressLint("ViewConstructor")
 class CustomMarkerView2(
     context: Context,
     private val data: List<PredictedTopic>
@@ -18,11 +20,11 @@ class CustomMarkerView2(
     private val binding: MarkerView2Binding
 
     init {
-        // Inflate layout menggunakan View Binding
-        val rootView = findViewById<LinearLayout>(R.id.marker_root) // Sesuaikan ID root layout
+        val rootView = findViewById<LinearLayout>(R.id.marker_root)
         binding = MarkerView2Binding.bind(rootView)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun refreshContent(entry: Entry?, highlight: Highlight?) {
         entry?.let {
             val index = entry.x.toInt()

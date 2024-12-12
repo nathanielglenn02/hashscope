@@ -39,11 +39,8 @@ class GrafikFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val selectedCategoryId = arguments?.getInt("CATEGORY_ID") ?: 0
-
-        // Tampilkan loading untuk kedua chart
         showLoadingBarChart()
         showLoadingLineChart()
-
         fetchMainTopics(selectedCategoryId)
         extractTopics()
 
@@ -126,24 +123,19 @@ class GrafikFragment : Fragment() {
 
         val barChart = binding.barChart
         barChart.data = BarData(dataSet)
-
-        // Atur label di X-Axis
         barChart.xAxis.valueFormatter = IndexAxisValueFormatter(labels)
         barChart.xAxis.textColor = android.graphics.Color.WHITE
         barChart.xAxis.labelRotationAngle = -45f
         barChart.xAxis.granularity = 1f
         barChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
-
         barChart.axisLeft.textColor = android.graphics.Color.WHITE
         barChart.axisRight.isEnabled = false
         barChart.description.isEnabled = false
         barChart.legend.textColor = android.graphics.Color.WHITE
 
-        // Tambahkan MarkerView
         val markerView = CustomMarkerView(requireContext(), R.layout.marker_view, labels)
         barChart.marker = markerView
-
-        barChart.invalidate() // Refresh grafik
+        barChart.invalidate()
     }
 
     private fun updateLineChart(data: List<PredictedTopic>) {
@@ -164,24 +156,18 @@ class GrafikFragment : Fragment() {
 
         val lineChart = binding.lineChart
         lineChart.data = LineData(dataSet)
-
-        // Tambahkan MarkerView dengan Binding
         val markerView = CustomMarkerView2(requireContext(), data)
         lineChart.marker = markerView
-
-        // Atur label di X-Axis
         lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(data.map { it.top_topic })
         lineChart.xAxis.textColor = android.graphics.Color.BLACK
         lineChart.xAxis.labelRotationAngle = -45f
         lineChart.xAxis.granularity = 1f
         lineChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
-
         lineChart.axisLeft.textColor = android.graphics.Color.BLACK
         lineChart.axisRight.isEnabled = false
         lineChart.description.isEnabled = false
         lineChart.legend.textColor = android.graphics.Color.BLACK
-
-        lineChart.invalidate() // Refresh grafik
+        lineChart.invalidate()
     }
 
     private fun showLoadingBarChart() {
@@ -195,7 +181,7 @@ class GrafikFragment : Fragment() {
         _binding?.let { binding ->
             binding.loadingBarChart.visibility = View.GONE
             val logo = binding.loadingBarChart.findViewById<View>(R.id.loadingLogo)
-            logo.clearAnimation() // Hentikan animasi
+            logo.clearAnimation()
         }
     }
 
@@ -210,7 +196,7 @@ class GrafikFragment : Fragment() {
         _binding?.let { binding ->
             binding.loadingLineChart.visibility = View.GONE
             val logo = binding.loadingLineChart.findViewById<View>(R.id.loadingLogo)
-            logo.clearAnimation() // Hentikan animasi
+            logo.clearAnimation()
         }
     }
 
@@ -221,7 +207,7 @@ class GrafikFragment : Fragment() {
                 val response = RetrofitClient.apiService.extractTopics()
                 if (response.isSuccessful) {
                     println("Extract Topics Success: ${response.body()}")
-                    fetchPredictedTopics() // Lanjutkan hanya jika sukses
+                    fetchPredictedTopics()
                 } else {
                     println("Error during topic extraction: ${response.errorBody()?.string()}")
                 }

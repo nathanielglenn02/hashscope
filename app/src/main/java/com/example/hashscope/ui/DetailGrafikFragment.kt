@@ -1,13 +1,13 @@
 package com.example.hashscope.ui
 
-import NowTopicAdapter
-import PredictedTopicAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.hashscope.adapter.NowTopicAdapter
+import com.example.hashscope.adapter.PredictedTopicAdapter
 import com.example.hashscope.databinding.FragmentDetailGrafikBinding
 import com.example.hashscope.model.MainTopic
 import com.example.hashscope.model.PredictedTopic

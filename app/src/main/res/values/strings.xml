@@ -19,11 +19,31 @@
     <string name="grafik">Grafik</string>
     <string name="profil">Profil</string>
     <string name="main_topics">Main Topics</string>
-    <string-array name="platform_options">
-        <item>Select platform</item>
-        <item>Aplikasi X</item>
-        <item>YouTube</item>
-        <item>Web (Browser)</item>
-    </string-array>
+    <string name="enter_email">Enter email</string>
+    <string name="full_text">Full Text</string>
+    <string name="source">Source</string>
+    <string name="url">URL</string>
+    <string name="created_at">Created At</string>
+    <string name="location">Location</string>
+    <string name="retweet_count">Retweet Count</string>
+    <string name="author_name">Author Name</string>
+    <string name="like_count">Like Count</string>
+    <string name="frekuensi_topik_saat_ini">Frekuensi Topik Saat Ini</string>
+    <string name="lihat_detail_grafik_1">Lihat Detail Grafik 1</string>
+    <string name="prediksi_frekuensi_topik">Prediksi Frekuensi Topik</string>
+    <string name="lihat_detail_grafik_2">Lihat Detail Grafik 2</string>
+    <string name="no_main_topics_available">No main topics available.</string>
+    <string name="something_went_wrong">Something went wrong!</string>
+    <string name="nama_user">Nama User</string>
+    <string name="email_user">Email User</string>
+    <string name="logout">Logout</string>
+    <string name="title">Title</string>
+    <string name="subtitle">Subtitle</string>
+    <string name="topic_name">Topic Name</string>
+    <string name="frequency_0">Frequency: 0</string>
+    <string name="topic">Topic</string>
+    <string name="previous_frequency">Previous Frequency</string>
+    <string name="predicted_frequency">Predicted Frequency</string>
+    <string name="change_percentage">Change Percentage</string>
 
 </resources>

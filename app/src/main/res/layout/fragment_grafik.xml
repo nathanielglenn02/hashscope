@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- ScrollView untuk konten -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,30 +13,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <!-- Judul Bar Chart -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Frekuensi Topik Saat Ini"
+                android:text="@string/frekuensi_topik_saat_ini"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:paddingBottom="4dp"
                 android:fontFamily="@font/roboto_bold" />
-
-            <!-- FrameLayout untuk BarChart dan indikator loading -->
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_marginBottom="16dp">
-
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/barChart"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
-
-                <!-- Loading untuk BarChart -->
                 <FrameLayout
                     android:id="@+id/loading_bar_chart"
                     android:layout_width="match_parent"
@@ -51,33 +43,26 @@
                 android:id="@+id/btnDetailBarChart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lihat Detail Grafik 1"
+                android:text="@string/lihat_detail_grafik_1"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="16dp" />
-
-            <!-- Judul Line Chart -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Prediksi Frekuensi Topik"
+                android:text="@string/prediksi_frekuensi_topik"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:paddingBottom="4dp"
                 android:fontFamily="@font/roboto_bold" />
-
-            <!-- FrameLayout untuk LineChart dan indikator loading -->
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_marginBottom="16dp">
-
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/lineChart"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
-
-                <!-- Loading untuk LineChart -->
                 <FrameLayout
                     android:id="@+id/loading_line_chart"
                     android:layout_width="match_parent"
@@ -91,7 +76,7 @@
                 android:id="@+id/btnDetailLineChart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lihat Detail Grafik 2"
+                android:text="@string/lihat_detail_grafik_2"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="80dp" />
         </LinearLayout>

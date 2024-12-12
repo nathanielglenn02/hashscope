@@ -11,7 +11,6 @@ class NameEditText @JvmOverloads constructor(
 ) : AppCompatEditText(context, attrs, defStyleAttr) {
 
     init {
-        // Set default hint jika tidak didefinisikan di XML
         if (hint.isNullOrEmpty()) {
             hint = "Name"
         }
@@ -28,7 +27,6 @@ class NameEditText @JvmOverloads constructor(
     }
 
     private fun validateName(name: String) {
-        // Validasi nama: hanya huruf dan tidak kosong
         if (name.isEmpty()) {
             error = "Name is required"
         } else if (!name.matches(Regex("^[a-zA-Z\\s]+\$"))) {

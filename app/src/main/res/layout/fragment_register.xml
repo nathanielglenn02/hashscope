@@ -8,7 +8,6 @@
     android:padding="24dp"
     tools:context=".auth.RegisterFragment">
 
-    <!-- Logo -->
     <ImageView
         android:id="@+id/logoImage"
         android:layout_width="200dp"
@@ -17,9 +16,9 @@
         android:src="@drawable/logo_bg"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="ContentDescription" />
 
-    <!-- Title -->
     <TextView
         android:id="@+id/registerTitle"
         android:layout_width="wrap_content"
@@ -33,7 +32,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Username Input -->
     <com.example.hashscope.custom.NameEditText
         android:id="@+id/usernameInput"
         android:layout_width="0dp"
@@ -48,7 +46,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Email Input -->
     <com.example.hashscope.custom.EmailEditText
         android:id="@+id/emailInput"
         android:layout_width="0dp"
@@ -63,7 +60,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Password Input -->
     <com.example.hashscope.custom.PasswordEditText
         android:id="@+id/passwordInput"
         android:layout_width="0dp"
@@ -78,7 +74,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Register Button -->
     <Button
         android:id="@+id/registerButton"
         android:layout_width="0dp"
@@ -93,7 +88,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Login Link -->
     <TextView
         android:id="@+id/loginLink"
         android:layout_width="wrap_content"

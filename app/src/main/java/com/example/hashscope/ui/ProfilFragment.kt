@@ -22,17 +22,10 @@ class ProfilFragment : Fragment() {
         _binding = FragmentProfilBinding.inflate(inflater, container, false)
 
         val userPreference = UserPreference(requireContext())
-
-        // Set data user ke UI
         binding.textUserName.text = userPreference.getUserName() ?: "Nama tidak tersedia"
         binding.textUserEmail.text = userPreference.getUserEmail() ?: "Email tidak tersedia"
-
-        // Handle logout
         binding.buttonLogout.setOnClickListener {
-            // Hapus token
             userPreference.clearToken()
-
-            // Arahkan kembali ke MainActivity
             val intent = Intent(requireContext(), MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)

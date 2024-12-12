@@ -6,7 +6,7 @@
         android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter email"
+        android:hint="@string/enter_email"
         android:padding="12dp"
         android:inputType="textEmailAddress" />
 </merge>

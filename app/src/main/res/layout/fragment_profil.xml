@@ -9,9 +9,6 @@
     android:padding="16dp"
     tools:context=".ui.ProfilFragment">
 
-    <!-- Logo Aplikasi -->
-
-    <!-- Nama User -->
     <ImageView
         android:id="@+id/image_logo"
         android:layout_width="250dp"
@@ -24,28 +21,26 @@
         android:id="@+id/text_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nama User"
+        android:text="@string/nama_user"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_marginBottom="8dp" />
 
-    <!-- Email User -->
     <TextView
         android:id="@+id/text_user_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email User"
+        android:text="@string/email_user"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         android:layout_marginBottom="32dp" />
 
-    <!-- Tombol Logout -->
     <Button
         android:id="@+id/button_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Logout"
+        android:text="@string/logout"
         android:backgroundTint="@android:color/black"
         android:textColor="@android:color/white"
         android:padding="12dp"

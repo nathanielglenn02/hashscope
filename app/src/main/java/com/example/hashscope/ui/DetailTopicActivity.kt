@@ -21,16 +21,12 @@ class DetailTopicActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_topic)
-
-        // Ambil data dari Intent
         val categoryId = intent.getIntExtra("CATEGORY_ID", 0)
         val mainTopicId = intent.getIntExtra("MAIN_TOPIC_ID", 0)
         val xDatasetsId = intent.getIntExtra("X_DATASETS_ID", -1)
         val webDatasetsId = intent.getIntExtra("WEB_DATASETS_ID", -1)
         val youtubeDatasetsId = intent.getIntExtra("YOUTUBE_DATASETS_ID", -1)
 
-
-        // Tentukan platform berdasarkan ID yang tersedia
         val platform = when {
             xDatasetsId != -1 -> "X"
             webDatasetsId != -1 -> "Web"
@@ -38,13 +34,11 @@ class DetailTopicActivity : AppCompatActivity() {
             else -> {
                 Log.e(TAG, "No valid platform ID found.")
                 Toast.makeText(this, "No platform data available", Toast.LENGTH_SHORT).show()
-                return // Hentikan aktivitas jika tidak ada data platform
+                return
             }
         }
 
         Log.d(TAG, "Selected platform: $platform")
-
-        // Panggil API untuk mendapatkan detail data
         fetchPlatformData(platform, categoryId, mainTopicId)
     }
 

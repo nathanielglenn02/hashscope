@@ -1,39 +1,38 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
     android:padding="16dp">
 
-    <!-- Header Section: Title and Logo -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingBottom="8dp">
+        android:paddingBottom="8dp"
+        tools:ignore="UseCompoundDrawables">
 
-        <!-- Title TextView -->
         <TextView
             android:id="@+id/mainTopicsTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Main Topics"
+            android:text="@string/main_topics"
             android:textSize="20sp"
             android:textColor="@color/black"
             android:fontFamily="@font/roboto_bold" />
 
-        <!-- Logo ImageView -->
         <ImageView
             android:id="@+id/logoImageView"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:src="@drawable/logo_bg"
-            android:layout_marginStart="8dp" />
+            android:layout_marginStart="8dp"
+            tools:ignore="ContentDescription" />
     </LinearLayout>
 
-    <!-- RecyclerView for displaying main topics -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
@@ -41,7 +40,6 @@
         android:layout_weight="1"
         android:visibility="visible" />
 
-    <!-- Progress Bar for loading state -->
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
@@ -49,12 +47,11 @@
         android:visibility="gone"
         android:layout_gravity="center" />
 
-    <!-- TextView for no data available -->
     <TextView
         android:id="@+id/noMainTopicsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No main topics available."
+        android:text="@string/no_main_topics_available"
         android:textSize="16sp"
         android:textColor="@color/black"
         android:fontFamily="@font/roboto_bold"
@@ -62,12 +59,11 @@
         android:layout_gravity="center"
         android:layout_marginTop="16dp" />
 
-    <!-- TextView for error message -->
     <TextView
         android:id="@+id/errorText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Something went wrong!"
+        android:text="@string/something_went_wrong"
         android:textColor="@color/white1"
         android:fontFamily="@font/roboto_bold"
         android:visibility="gone"

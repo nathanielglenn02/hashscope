@@ -11,7 +11,7 @@
             android:id="@+id/topicText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Topic"
+            android:text="@string/topic"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
 
@@ -19,20 +19,20 @@
             android:id="@+id/previousFrequencyText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Previous Frequency"
+            android:text="@string/previous_frequency"
             android:textColor="@android:color/white" />
 
         <TextView
             android:id="@+id/predictedFrequencyText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Predicted Frequency"
+            android:text="@string/predicted_frequency"
             android:textColor="@android:color/white" />
 
         <TextView
             android:id="@+id/changePercentageText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Change Percentage"
+            android:text="@string/change_percentage"
             android:textColor="@android:color/white" />
     </LinearLayout>

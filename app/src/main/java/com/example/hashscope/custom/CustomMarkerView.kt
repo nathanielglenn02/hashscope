@@ -1,5 +1,6 @@
 package com.example.hashscope.custom
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.widget.TextView
 import com.github.mikephil.charting.components.MarkerView
@@ -7,11 +8,13 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.highlight.Highlight
 import com.example.hashscope.R
 
+@SuppressLint("ViewConstructor")
 class CustomMarkerView(context: Context, layoutResource: Int, private val labels: List<String>) :
     MarkerView(context, layoutResource) {
 
     private val textView: TextView = findViewById(R.id.tvContent)
 
+    @SuppressLint("SetTextI18n")
     override fun refreshContent(e: Entry?, highlight: Highlight?) {
         val index = e?.x?.toInt() ?: 0
         if (index < labels.size) {

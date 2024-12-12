@@ -17,11 +17,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        // Mendapatkan CATEGORY_ID dari Intent yang dikirimkan oleh CategoryFragment
         val categoryId = intent.getIntExtra("CATEGORY_ID", 0)
-
-        // Inisialisasi fragment dengan argumen
         val mainFragment = MainFragment().apply {
             arguments = Bundle().apply { putInt("CATEGORY_ID", categoryId) }
         }
@@ -29,13 +25,10 @@ class HomeActivity : AppCompatActivity() {
             arguments = Bundle().apply { putInt("CATEGORY_ID", categoryId) }
         }
         val profilFragment = ProfilFragment()
-
-        // Load MainFragment sebagai default
         if (savedInstanceState == null) {
             loadFragment(mainFragment)
         }
 
-        // Setup bottom navigation
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_main -> loadFragment(mainFragment)
@@ -52,7 +45,7 @@ class HomeActivity : AppCompatActivity() {
                 .setCustomAnimations(
                     R.anim.slide_in_right, R.anim.slide_out_left,
                     R.anim.slide_in_left, R.anim.slide_out_right
-                ) // Tambahkan transisi animasi
+                )
                 .replace(binding.fragmentContainer.id, fragment)
                 .commit()
             activeFragment = fragment
@@ -63,14 +56,13 @@ class HomeActivity : AppCompatActivity() {
         val currentFragment = supportFragmentManager.findFragmentById(binding.fragmentContainer.id)
 
         if (currentFragment is MainFragment || currentFragment is GrafikFragment || currentFragment is ProfilFragment) {
-            // Kembali ke CategoryFragment dengan efek transisi
-            val intent = Intent(this, MainActivity::class.java) // MainActivity adalah tempat NavGraph Anda
+            val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right) // Efek transisi
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
             finish()
         } else {
-            super.onBackPressed() // Jika bukan salah satu fragment target, ikuti alur back default
+            super.onBackPressed()
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.hashscope.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,10 +31,9 @@ class DetailWebFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // Tampilkan data di UI menggunakan binding
         binding.tvFullText.text = platformData.full_text
         binding.tvSource.text = "Source: ${platformData.source ?: "N/A"}"
         binding.tvUrl.text = "URL: ${platformData.url ?: "N/A"}"

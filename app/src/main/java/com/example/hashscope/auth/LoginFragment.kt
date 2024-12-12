@@ -21,8 +21,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     private lateinit var userPreference: UserPreference
-
-    private var loadingView: View? = null // Loading view container
+    private var loadingView: View? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,33 +33,22 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // Inisialisasi UserPreference
         userPreference = UserPreference(requireContext())
-
-        // Tambahkan loading indicator
         addLoadingIndicator()
-
-        // Handle klik tombol login
         binding.loginButton.setOnClickListener {
             val email = binding.emailInput.text.toString().trim()
             val password = binding.passwordInput.text.toString().trim()
 
-            // Validasi input
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(requireContext(), "Please enter all fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-
             if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 Toast.makeText(requireContext(), "Invalid email format", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-
-            // Menampilkan loading sebelum request
             showLoading()
 
-            // Memanggil API login secara asinkron menggunakan Coroutine
             lifecycleScope.launch {
                 try {
                     val loginRequest = LoginRequest(email, password)
@@ -71,13 +59,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                         if (loginResponse != null) {
                             val token = loginResponse.token
                             val user = loginResponse.user
-
-                            // Simpan token, email, dan nama ke SharedPreferences
                             userPreference.saveToken(token)
                             userPreference.saveUserEmail(user.email)
                             userPreference.saveUserName(user.name)
 
-                            // Navigasi ke CategoryFragment
                             Toast.makeText(requireContext(), "Login Sukses", Toast.LENGTH_SHORT).show()
                             findNavController().navigate(R.id.action_loginFragment_to_categoryFragment)
                         } else {
@@ -89,19 +74,16 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 } catch (e: Exception) {
                     Toast.makeText(requireContext(), "Terjadi kesalahan: ${e.message}", Toast.LENGTH_SHORT).show()
                 } finally {
-                    // Sembunyikan loading setelah respon diterima
                     hideLoading()
                 }
             }
         }
 
-        // Handle klik link signup
         binding.signupLink.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
     }
 
-    // Menambahkan indikator loading
     private fun addLoadingIndicator() {
         val inflater = LayoutInflater.from(requireContext())
         loadingView = inflater.inflate(R.layout.loading_indicator, binding.root, false)
@@ -109,7 +91,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         val logo = loadingView?.findViewById<View>(R.id.loadingLogo)
         val rotateAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.rotate)
         logo?.startAnimation(rotateAnimation)
-        loadingView?.visibility = View.GONE // Awalnya disembunyikan
+        loadingView?.visibility = View.GONE
     }
 
     private fun showLoading() {

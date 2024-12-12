@@ -8,7 +8,6 @@
     android:padding="24dp"
     tools:context="com.example.hashscope.auth.LoginFragment">
 
-    <!-- Logo -->
     <ImageView
         android:id="@+id/logoImage"
         android:layout_width="215dp"
@@ -17,9 +16,9 @@
         android:src="@drawable/logo_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
-    <!-- Title -->
     <TextView
         android:id="@+id/loginTitle"
         android:layout_width="wrap_content"
@@ -33,7 +32,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logoImage" />
 
-    <!-- Custom EmailEditText -->
     <com.example.hashscope.custom.EmailEditText
         android:id="@+id/emailInput"
         android:layout_width="0dp"
@@ -43,7 +41,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginTitle" />
 
-    <!-- Custom PasswordEditText -->
     <com.example.hashscope.custom.PasswordEditText
         android:id="@+id/passwordInput"
         android:layout_width="0dp"
@@ -53,7 +50,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailInput" />
 
-    <!-- Login Button -->
     <Button
         android:id="@+id/loginButton"
         android:layout_width="0dp"
@@ -68,7 +64,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordInput" />
 
-    <!-- Signup Link -->
     <TextView
         android:id="@+id/signupLink"
         android:layout_width="wrap_content"

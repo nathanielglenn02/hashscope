@@ -21,10 +21,8 @@ class MainActivity : AppCompatActivity() {
             val token = userPreference.getToken()
 
             if (token != null) {
-                // Jika token ada, navigasi ke CategoryFragment
                 navController.navigate(R.id.categoryFragment)
             } else {
-                // Jika token tidak ada, navigasi ke LoginFragment
                 navController.navigate(R.id.loginFragment)
             }
         }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -17,7 +18,8 @@
         android:layout_marginTop="139dp"
         android:layout_marginEnd="81dp"
         android:layout_marginBottom="333dp"
-        android:src="@drawable/logo_bg" />
+        android:src="@drawable/logo_bg"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/app_name"
@@ -30,7 +32,7 @@
         android:layout_marginEnd="125dp"
         android:layout_marginBottom="349dp"
         android:fontFamily="@font/roboto_bold"
-        android:text="HashScope"
+        android:text="@string/hashscope"
         android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold" />

@@ -13,7 +13,7 @@ class EmailEditText @JvmOverloads constructor(
 
     init {
         if (hint.isNullOrEmpty()) {
-            hint = "Email" // Set default hint hanya jika tidak didefinisikan di XML
+            hint = "Email"
         }
 
         addTextChangedListener(object : TextWatcher {

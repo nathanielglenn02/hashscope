@@ -1,3 +1,6 @@
+package com.example.hashscope.adapter
+
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +19,7 @@ class NowTopicAdapter(private val topics: List<MainTopic>) :
         return ViewHolder(binding)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val topic = topics[position]
         holder.binding.tvTitle.text = topic.topics_name
