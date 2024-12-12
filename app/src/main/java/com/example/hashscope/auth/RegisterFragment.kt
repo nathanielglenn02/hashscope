@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -19,6 +20,8 @@ class RegisterFragment : Fragment() {
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
 
+    private var loadingView: View? = null // Loading view container
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,6 +33,9 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Tambahkan loading indicator
+        addLoadingIndicator()
+
         // Handle Register Button click
         binding.registerButton.setOnClickListener {
             val username = binding.usernameInput.text.toString()
@@ -38,6 +44,10 @@ class RegisterFragment : Fragment() {
 
             if (validateInput(username, email, password)) {
                 val registerRequest = RegisterRequest(username, email, password)
+
+                // Tampilkan loading saat memulai API call
+                showLoading()
+
                 // Perform API call for registration
                 registerUser(registerRequest)
             }
@@ -52,6 +62,9 @@ class RegisterFragment : Fragment() {
     private fun registerUser(registerRequest: RegisterRequest) {
         RetrofitClient.apiService.registerUser(registerRequest).enqueue(object : Callback<RegisterResponse> {
             override fun onResponse(call: Call<RegisterResponse>, response: Response<RegisterResponse>) {
+                // Sembunyikan loading setelah mendapatkan respon
+                hideLoading()
+
                 if (response.isSuccessful) {
                     val registerResponse = response.body()
                     if (registerResponse != null && registerResponse.success) {
@@ -66,6 +79,8 @@ class RegisterFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                // Sembunyikan loading jika terjadi error
+                hideLoading()
                 Toast.makeText(requireContext(), "Registration Failed: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
@@ -94,6 +109,25 @@ class RegisterFragment : Fragment() {
         }
 
         return true
+    }
+
+    // Tambahkan indikator loading
+    private fun addLoadingIndicator() {
+        val inflater = LayoutInflater.from(requireContext())
+        loadingView = inflater.inflate(R.layout.loading_indicator, binding.root, false)
+        binding.root.addView(loadingView)
+        val logo = loadingView?.findViewById<View>(R.id.loadingLogo)
+        val rotateAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.rotate)
+        logo?.startAnimation(rotateAnimation)
+        loadingView?.visibility = View.GONE // Awalnya disembunyikan
+    }
+
+    private fun showLoading() {
+        loadingView?.visibility = View.VISIBLE
+    }
+
+    private fun hideLoading() {
+        loadingView?.visibility = View.GONE
     }
 
     override fun onDestroyView() {

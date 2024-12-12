@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -21,6 +22,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private val binding get() = _binding!!
     private lateinit var userPreference: UserPreference
 
+    private var loadingView: View? = null // Loading view container
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,6 +37,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         // Inisialisasi UserPreference
         userPreference = UserPreference(requireContext())
+
+        // Tambahkan loading indicator
+        addLoadingIndicator()
 
         // Handle klik tombol login
         binding.loginButton.setOnClickListener {
@@ -50,6 +56,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 Toast.makeText(requireContext(), "Invalid email format", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+
+            // Menampilkan loading sebelum request
+            showLoading()
 
             // Memanggil API login secara asinkron menggunakan Coroutine
             lifecycleScope.launch {
@@ -79,16 +88,36 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     }
                 } catch (e: Exception) {
                     Toast.makeText(requireContext(), "Terjadi kesalahan: ${e.message}", Toast.LENGTH_SHORT).show()
+                } finally {
+                    // Sembunyikan loading setelah respon diterima
+                    hideLoading()
                 }
             }
-
-
         }
 
         // Handle klik link signup
         binding.signupLink.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
+    }
+
+    // Menambahkan indikator loading
+    private fun addLoadingIndicator() {
+        val inflater = LayoutInflater.from(requireContext())
+        loadingView = inflater.inflate(R.layout.loading_indicator, binding.root, false)
+        binding.root.addView(loadingView)
+        val logo = loadingView?.findViewById<View>(R.id.loadingLogo)
+        val rotateAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.rotate)
+        logo?.startAnimation(rotateAnimation)
+        loadingView?.visibility = View.GONE // Awalnya disembunyikan
+    }
+
+    private fun showLoading() {
+        loadingView?.visibility = View.VISIBLE
+    }
+
+    private fun hideLoading() {
+        loadingView?.visibility = View.GONE
     }
 
     override fun onDestroyView() {
