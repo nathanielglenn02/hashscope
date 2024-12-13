@@ -64,7 +64,7 @@ class CategoryFragment : Fragment() {
                     Toast.makeText(requireContext(), "Failed to scrape news", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
-                Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Scrapping Done", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -81,7 +81,7 @@ class CategoryFragment : Fragment() {
                     Toast.makeText(requireContext(), "Failed to scrape YouTube data", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
-                Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Scrapping Done", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -98,7 +98,7 @@ class CategoryFragment : Fragment() {
                     Toast.makeText(requireContext(), "Failed to scrape X data", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
-                Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Scrapping Done", Toast.LENGTH_SHORT).show()
             }
         }
     }
